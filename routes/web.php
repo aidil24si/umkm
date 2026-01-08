@@ -1,13 +1,14 @@
 <?php
-use App\Http\Controllers\UmkmController;
-use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PesananController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UasController;
+use App\Http\Controllers\UmkmController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PesananController;
 
 Route::get('/', [UmkmController::class, 'index'])->name('umkm.index');
 // Show UMKM details (only numeric IDs) to avoid catching 'create' as an id
@@ -68,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/umkm/daftar', [UmkmController::class, 'myIndex'])->name('umkm.daftar');
 
     Route::resource('umkm', UmkmController::class)->except(['index', 'show']);
-    
+
     // CRUD Produk
     Route::resource('produk', ProdukController::class);
 
@@ -102,4 +103,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('users', AdminController::class); // CRUD User
 });
+
+Route::get('/uas/{param1}', [UasController::class, 'show']);
 

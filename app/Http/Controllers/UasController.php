@@ -36,7 +36,7 @@ class UasController extends Controller
      */
     public function show(string $param1)
     {
-        if($param1 =< 2009){
+        if($param1 <= 2009){
                 return view('uas');
         }else{
             return 'Halaman ini untuk 17 tahun ke atas';
